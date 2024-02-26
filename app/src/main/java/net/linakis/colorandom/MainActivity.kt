@@ -41,12 +41,15 @@ class MainActivity : AppCompatActivity() {
 
         imageView.setImageDrawable(drawable)
 
-
-        lifecycleScope.launch(Dispatchers.Main) {
-            val colorName = fetchColorName(randomColor)
-            name.text = colorName
+        // protect the color-name feature with a remote feature flag
+        if (RemoteConfigRepository.isFeatureColorNameEnabled()) {
+            lifecycleScope.launch(Dispatchers.Main) {
+                val colorName = fetchColorName(randomColor)
+                name.text = colorName
+            }
+        } else {
+            name.text = ""
         }
-
     }
 
     private fun getRandomColor(): Int {

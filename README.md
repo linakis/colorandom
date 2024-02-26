@@ -7,7 +7,7 @@ Colorandom is a simple Android application that colorarises randomly the state o
 ## Features
 
 - Randomly colorarises the state of Colorado on a USA map.
-- Displays the name of the color when a new color is generated
+- Displays the name of the color when a new color is generated (feature flag protected).
 
 ## How it looks
 ![Colorandom Demo](assets/colorandom.gif)
