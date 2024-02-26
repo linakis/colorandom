@@ -8,6 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import net.linakis.colorandom.api.RetrofitClient
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
@@ -36,9 +40,23 @@ class MainActivity : AppCompatActivity() {
             PorterDuffColorFilter(randomColor, PorterDuff.Mode.SRC_IN)
 
         imageView.setImageDrawable(drawable)
+
+
+        lifecycleScope.launch(Dispatchers.Main) {
+            val colorName = fetchColorName(randomColor)
+            name.text = colorName
+        }
+
     }
 
     private fun getRandomColor(): Int {
         return Color.argb(255, Random.nextInt(256), Random.nextInt(256), Random.nextInt(256))
+    }
+
+    private suspend fun fetchColorName(color: Int): String {
+        val colorService = RetrofitClient.apiService
+        val response =
+            colorService.getColorName("${Color.red(color)},${Color.green(color)},${Color.blue(color)}")
+        return response.name.colorName
     }
 }
