@@ -10,5 +10,6 @@ class Colorandom : Application() {
         super.onCreate()
 
         RemoteConfigRepository.init(this)
+        FlipperHelper.start(this)
     }
 }
