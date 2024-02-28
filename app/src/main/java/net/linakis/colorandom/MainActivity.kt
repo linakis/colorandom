@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private fun colorandom() {
         val drawable = ContextCompat.getDrawable(applicationContext, R.drawable.colorandom)
         val randomColor = getRandomColor()
+        SharedPreferencesManager.saveRandomColor(randomColor)
 
         drawable?.colorFilter =
             PorterDuffColorFilter(randomColor, PorterDuff.Mode.SRC_IN)

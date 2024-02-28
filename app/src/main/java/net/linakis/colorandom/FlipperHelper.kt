@@ -1,5 +1,6 @@
 package net.linakis.colorandom
 
+import net.linakis.colorandom.SharedPreferencesManager.PREF_NAME
 import android.app.Application
 import com.facebook.flipper.android.AndroidFlipperClient
 import com.facebook.flipper.android.utils.FlipperUtils
@@ -20,6 +21,7 @@ object FlipperHelper {
             val client = AndroidFlipperClient.getInstance(application)
             client.addPlugin(InspectorFlipperPlugin(application, DescriptorMapping.withDefaults()))
             client.addPlugin(networkFlipperPlugin)
+            client.addPlugin(SharedPreferencesFlipperPlugin(application, PREF_NAME))
             client.start()
         }
         started = true
